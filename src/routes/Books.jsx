@@ -11,7 +11,6 @@ import {
   Rating,
   Chip,
   Typography,
-  TextField,
 } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
@@ -20,22 +19,48 @@ import SearchIcon from "@mui/icons-material/Search";
 
 function Books() {
   const { data: books, loading, get } = useAxios("http://localhost:3000");
+  const [search, setSearch] = useState("");
+  const [filteredBooks, setFilteredBooks] = useState([]);
 
   /* This function will call the getBooks function if there aren't any books displayed to the UI. */
   useEffect(() => {
     get("books");
   }, []);
 
+  // Update filtered books whenever the original books or search query changes
+  useEffect(() => {
+    if (books) {
+      const lowerCaseSearch = search.toLowerCase();
+      const result = books.filter(
+        (book) =>
+          book.name.toLowerCase().includes(lowerCaseSearch) ||
+          book.author.toLowerCase().includes(lowerCaseSearch) ||
+          book.genres.some((genre) =>
+            genre.toLowerCase().includes(lowerCaseSearch)
+          )
+      );
+      setFilteredBooks(result);
+    }
+  }, [books, search]);
 
-  // TODO: Implement search functionality
   return (
     <Box sx={{ mx: "auto", p: 2 }}>
-      <TextField
-        id="outlined-basic"
-        label="Search"
-        variant="outlined"
-        sx={{ mx: "auto", mb: 2 }}
-      />
+      <Paper
+        component="form"
+        sx={{ p: "2px 4px", display: "flex", alignItems: "center", width: 400 }}
+      >
+        <InputBase
+          sx={{ ml: 1, flex: 1 }}
+          placeholder="Search"
+          inputProps={{ "aria-label": "search" }}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+          <SearchIcon />
+        </IconButton>
+      </Paper>
+
       {loading && <CircularProgress />}
       {!loading && filteredBooks && (
         <div>
