@@ -13,15 +13,19 @@ import {
   Typography,
   TextField,
 } from "@mui/material";
+import Paper from "@mui/material/Paper";
+import InputBase from "@mui/material/InputBase";
+import IconButton from "@mui/material/IconButton";
+import SearchIcon from "@mui/icons-material/Search";
 
 function Books() {
   const { data: books, loading, get } = useAxios("http://localhost:3000");
-  const [searchResult, setSearchResult] = useState();
 
   /* This function will call the getBooks function if there aren't any books displayed to the UI. */
   useEffect(() => {
     get("books");
   }, []);
+
 
   // TODO: Implement search functionality
   return (
@@ -33,7 +37,7 @@ function Books() {
         sx={{ mx: "auto", mb: 2 }}
       />
       {loading && <CircularProgress />}
-      {!loading && books && (
+      {!loading && filteredBooks && (
         <div>
           <Stack
             sx={{ justifyContent: "space-around" }}
@@ -42,8 +46,8 @@ function Books() {
             useFlexGap
             flexWrap="wrap"
           >
-            {/* Mapping through the books to show it in the card. */}
-            {books.map((book) => (
+            {/* Mapping through the filteredBooks to show it in the card. */}
+            {filteredBooks.map((book) => (
               <Card
                 sx={{
                   display: "flex",
