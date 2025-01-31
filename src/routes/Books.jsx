@@ -16,6 +16,7 @@ import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
+import { Link } from "react-router-dom";
 
 function Books() {
   const { data: books, loading, get } = useAxios("http://localhost:3000");
@@ -130,7 +131,14 @@ function Books() {
                     readOnly
                     size="small"
                   />
-                  <Button size="small">Learn More</Button>
+                  <Button
+                    size="small"
+                    variant="contained"
+                    component={Link}
+                    to={`/book/${book.id}`}
+                  >
+                    View
+                  </Button>
                 </CardActions>
               </Card>
             ))}
