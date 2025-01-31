@@ -15,7 +15,7 @@ import { Stack, Typography } from "@mui/material";
 
 /* To add new books to the books.json */
 function AddBook() {
-  const { alert, post } = useAxios("http://localhost:3000");
+  const { alert, post, showAlert } = useAxios("http://localhost:3000");
   const [rateValue, setRateValue] = useState();
   const [book, setBook] = useState({
     author: "",
@@ -36,11 +36,11 @@ function AddBook() {
   };
   /* This function will add the ratings of the book. I will also take the value from the input and set to the stars along with other information about the book. */
 
-  const rateChangeHandler = (event) => {
-    const { value } = event.target;
+  const rateChangeHandler = (event, newValue) => {
+    setRateValue(newValue);
     setBook({
       ...book,
-      stars: value,
+      stars: newValue,
     });
   };
 
@@ -55,7 +55,14 @@ function AddBook() {
   };
 
   /* This postHandler function will add the new book to the books.json. */
-  function postHandler() {
+  function postHandler(e) {
+    e.preventDefault();
+
+    if (!book.name || !book.author) {
+      showAlert("Please fill in all required fields", "error");
+      return;
+    }
+
     post("books", book);
   }
 
@@ -75,18 +82,21 @@ function AddBook() {
           id="outlined-basic"
           label="Title"
           variant="outlined"
+          required
         />
         <TextField
           name="author"
           id="outlined-basic"
           label="Author"
           variant="outlined"
+          required
         />
         <TextField
           name="img"
           id="outlined-basic"
           label="Image (url)"
           variant="outlined"
+          required
         />
         <Select
           labelId="demo-multiple-name-label"
@@ -96,6 +106,7 @@ function AddBook() {
           name="genres"
           onChange={genreChangeHandler}
           input={<OutlinedInput label="Genre" />}
+          required
         >
           {/* Mapping the genre name from the genres.js file. */}
           {bookGenres.map((name) => (
@@ -116,12 +127,9 @@ function AddBook() {
         <Stack>
           <Rating
             sx={{ mx: "auto" }}
-            name="simple-controlled"
+            name="stars"
             value={rateValue}
-            onClick={rateChangeHandler}
-            onChange={(event, newValue) => {
-              setValue(newValue);
-            }}
+            onChange={rateChangeHandler}
           />
         </Stack>
         <Button variant="contained" type="submit">
