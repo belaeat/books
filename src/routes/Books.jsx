@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useAxios from "../services/useAxios";
+import fallbackImage from "../assets/fallbackImage.png";
 import {
   Box,
   Card,
@@ -22,7 +23,6 @@ function Books() {
   const { data: books, loading, get } = useAxios("http://localhost:3000");
   const [search, setSearch] = useState("");
   const [filteredBooks, setFilteredBooks] = useState([]);
-  const fallbackImage = "/src/assets/fallbackImage.png";
 
   /* This function will call the getBooks function if there aren't any books displayed to the UI. */
   useEffect(() => {
