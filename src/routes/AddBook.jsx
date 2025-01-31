@@ -20,12 +20,17 @@ function AddBook() {
   const [book, setBook] = useState({
     author: "",
     name: "",
+    img: "",
     genres: [],
     completed: false,
     start: null,
     end: null,
     stars: null,
   });
+
+  // Fallback image
+  const fallbackImage = "../assets/fallbackImage.png";
+
   /* To change the genre of the book. It will take the value from the input and set the book genre along with other information about the book. */
   const genreChangeHandler = (event) => {
     const { value } = event.target;
@@ -63,7 +68,13 @@ function AddBook() {
       return;
     }
 
-    post("books", book);
+    // If the image is not provided, use the fallback image
+    const bookToPost = {
+      ...book,
+      img: book.img.trim() || fallbackImage,
+    };
+
+    post("books", bookToPost);
   }
 
   return (
@@ -96,7 +107,6 @@ function AddBook() {
           id="outlined-basic"
           label="Image (url)"
           variant="outlined"
-          required
         />
         <Select
           labelId="demo-multiple-name-label"
