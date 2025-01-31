@@ -71,7 +71,7 @@ function AddBook() {
     // If the image is not provided, use the fallback image
     const bookToPost = {
       ...book,
-      img: book.img.trim() || fallbackImage,
+      img: book.img && book.img.trim() ? book.img : fallbackImage,
     };
 
     post("books", bookToPost);
