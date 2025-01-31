@@ -4,10 +4,7 @@
       "id": 1,
       "author": "Antoine de Saint-Exupéry",
       "name": "The Little Prince",
-      "genres": [
-        "Fantasy",
-        "Adventure"
-      ],
+      "genres": ["Fantasy", "Adventure"],
       "completed": true,
       "start": "2023-03-10",
       "end": "2023-03-25",
@@ -18,10 +15,7 @@
       "id": 2,
       "author": "Walter Isaacson",
       "name": "Steve Jobs",
-      "genres": [
-        "Biography",
-        "Business"
-      ],
+      "genres": ["Biography", "Business"],
       "completed": true,
       "start": "2023-04-05",
       "end": "2023-04-30",
@@ -32,10 +26,7 @@
       "id": 3,
       "author": "George Orwell",
       "name": "1984",
-      "genres": [
-        "Science Fiction",
-        "Dystopian"
-      ],
+      "genres": ["Science Fiction", "Dystopian"],
       "completed": true,
       "start": "2023-05-10",
       "end": "2023-05-31",
@@ -46,10 +37,7 @@
       "id": 4,
       "author": "J.K. Rowling",
       "name": "Harry Potter and the Sorcerer's Stone",
-      "genres": [
-        "Fantasy",
-        "Adventure"
-      ],
+      "genres": ["Fantasy", "Adventure"],
       "completed": true,
       "start": "2023-06-15",
       "end": "2023-07-10",
@@ -59,9 +47,7 @@
     {
       "author": "David JP Phillips",
       "name": "High on Life",
-      "genres": [
-        "Non-Fiction"
-      ],
+      "genres": ["Non-Fiction"],
       "completed": true,
       "start": null,
       "end": null,
