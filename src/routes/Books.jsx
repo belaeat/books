@@ -21,6 +21,7 @@ function Books() {
   const { data: books, loading, get } = useAxios("http://localhost:3000");
   const [search, setSearch] = useState("");
   const [filteredBooks, setFilteredBooks] = useState([]);
+  const fallbackImage = "/src/assets/fallbackImage.png";
 
   /* This function will call the getBooks function if there aren't any books displayed to the UI. */
   useEffect(() => {
@@ -91,8 +92,13 @@ function Books() {
               >
                 <CardMedia
                   sx={{ height: 250 }}
-                  image={book.img}
-                  title={book.name}
+                  component="img"
+                  src={book.img ? book.img : fallbackImage}
+                  alt={book.name}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = fallbackImage;
+                  }}
                 />
                 <Box sx={{ pt: 2, pl: 2 }}>
                   {/* Mapping through the genre to show it in a chip inside the card component. */}
